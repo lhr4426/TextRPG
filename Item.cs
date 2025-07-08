@@ -6,11 +6,11 @@ public class Item : IItem
     public string Name { get; set; }
     public string Description { get; set; }
     public int Stat { get; set; }
-    public decimal Price { get; set; }
+    public int Price { get; set; }
     public bool IsEquip { get; set; }
     public IItem.ItemTypes ItemType { get; set; }
 
-    public Item(string name, string description, int stat, decimal price, IItem.ItemTypes itemType)
+    public Item(string name, string description, int stat, int price, IItem.ItemTypes itemType)
     {
         Name = name;
         Description = description;

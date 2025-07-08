@@ -11,7 +11,9 @@ public class PlayerData
     public int HP { get; set; }
     public int Gold { get; set; }
 
-    public List<IItem> Items { get; set; }
-    public List<ISkill> Skills { get; set; }
+    public List<Item?> EquipItem { get; set; } // 착용 중인 아이템 목록 (무기, 방어구 등)
+
+    public List<Item?> Items { get; set; }
+    public List<Skill?> Skills { get; set; }
 }
 

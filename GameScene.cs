@@ -1,4 +1,5 @@
 ﻿using System;
+using static GameManager;
 
 public class GameScene : IGameScene
 {
@@ -30,20 +31,22 @@ public class GameScene : IGameScene
     {
         for(int i = 0; i < nextScenes.Count; i++)
         {
-            GameManager.SceneType sceneType = GameManager.instance.scenes.FirstOrDefault(x => x.Value == nextScenes[i]).Key;
-            string sceneString = GameManager.instance.sceneString[sceneType];
+            GameManager.SceneType sceneType = GameManager.scenes.FirstOrDefault(x => x.Value == nextScenes[i]).Key;
+            string sceneString = GameManager.sceneString[sceneType];
             Console.WriteLine($"{i + 1}: {sceneString}");
         }
         if(prevScene != null)
         {
-            GameManager.SceneType prevType = GameManager.instance.scenes.FirstOrDefault(x => x.Value == prevScene).Key;
-            Console.WriteLine($"0: {prevType}");
+            GameManager.SceneType prevType = GameManager.scenes.FirstOrDefault(x => x.Value == prevScene).Key;
+            string sceneString = GameManager.sceneString[prevType];
+            Console.WriteLine($"0: {sceneString}");
         }
         else
         {
             Console.WriteLine("0: 게임 종료");
         }
         Console.WriteLine("이동할 곳을 선택하세요. (숫자 입력)");
+        GameManager.instance.SavePlayerData();
         Console.Write(">> ");
         string input = Console.ReadLine()?.Trim() ?? "-1";
         if(int.TryParse(input, out int nextSceneIdx))

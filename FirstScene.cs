@@ -10,7 +10,7 @@ public class FirstScene : GameScene
 
     public override void StartScene()
     {
-        SetNextScene(GameManager.instance.scenes[GameManager.SceneType.TownScene]);
+        
         while (true)
         {
             Console.Clear();
@@ -36,7 +36,7 @@ public class FirstScene : GameScene
                 }
                 else
                 {
-                    Console.WriteLine($"{GameManager.instance.playerData.Name}씨, 당신의 모험이 다시 시작됩니다.");
+                    Console.WriteLine($"{GameManager.instance.playerData.Name} 님, 당신의 모험이 다시 시작됩니다.");
                     break;
                 }
             }
@@ -59,7 +59,7 @@ public class FirstScene : GameScene
         }
         GameManager.instance.NewPlayerData(inputName);
         GameManager.instance.SavePlayerData();
-        Console.WriteLine($"{inputName}씨, 당신은 새로운 모험을 시작하게 됩니다...");
+        Console.WriteLine($"{inputName} 님, 당신은 새로운 모험을 시작하게 됩니다...");
         Console.ReadKey();
     }
 
