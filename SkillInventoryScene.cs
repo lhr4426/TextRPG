@@ -6,8 +6,9 @@ public class SkillInventoryScene : GameScene
 	{
 	}
 
-    public override void StartScene()
+    public override IGameScene? StartScene()
     {
         base.StartScene();
+        throw new NotImplementedException("SkillInventoryScene is not implemented yet.");
     }
 }

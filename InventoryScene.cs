@@ -6,7 +6,7 @@ public class InventoryScene : GameScene
 	{
 	}
 
-	public override void StartScene()
+	public override IGameScene? StartScene()
 	{
         Console.Clear();
         while(true)
@@ -21,7 +21,7 @@ public class InventoryScene : GameScene
             {
                 if(itemIndex== 0)
                 {
-                    this.prevScene?.StartScene();
+                    return this.prevScene;
                 }
                 else if (itemIndex <= GameManager.instance.playerData.Items.Count)
                 {

@@ -66,8 +66,15 @@ public class GameManager
 
 
         SceneSetting();
+    }
 
-        scenes[SceneType.FirstScene].StartScene();
+    public void GameStart()
+    {
+        IGameScene? currentScene = scenes[SceneType.FirstScene];
+        while (currentScene != null)
+        {
+            currentScene = currentScene.StartScene();
+        }
     }
 
     public void SceneSetting()

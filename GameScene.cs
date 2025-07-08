@@ -22,59 +22,61 @@ public class GameScene : IGameScene
         this.prevScene = prevScene;
     }
 
-    public virtual void StartScene()
+    public virtual IGameScene? StartScene()
     {
         throw new NotImplementedException();
     }
 
-    public void PrintNextScenes()
+    public IGameScene? PrintNextScenes()
     {
-        for(int i = 0; i < nextScenes.Count; i++)
+        while (true)
         {
-            GameManager.SceneType sceneType = GameManager.scenes.FirstOrDefault(x => x.Value == nextScenes[i]).Key;
-            string sceneString = GameManager.sceneString[sceneType];
-            Console.WriteLine($"{i + 1}: {sceneString}");
-        }
-        if(prevScene != null)
-        {
-            GameManager.SceneType prevType = GameManager.scenes.FirstOrDefault(x => x.Value == prevScene).Key;
-            string sceneString = GameManager.sceneString[prevType];
-            Console.WriteLine($"0: {sceneString}");
-        }
-        else
-        {
-            Console.WriteLine("0: 게임 종료");
-        }
-        Console.WriteLine("이동할 곳을 선택하세요. (숫자 입력)");
-        GameManager.instance.SavePlayerData();
-        Console.Write(">> ");
-        string input = Console.ReadLine()?.Trim() ?? "-1";
-        if(int.TryParse(input, out int nextSceneIdx))
-        {
-            EndScene(nextSceneIdx);
-        }
-        else
-        {
-            Console.WriteLine("잘못된 입력입니다. 숫자를 입력해주세요.");
-            PrintNextScenes();
+            for (int i = 0; i < nextScenes.Count; i++)
+            {
+                GameManager.SceneType sceneType = GameManager.scenes.FirstOrDefault(x => x.Value == nextScenes[i]).Key;
+                string sceneString = GameManager.sceneString[sceneType];
+                Console.WriteLine($"{i + 1}: {sceneString}");
+            }
+            if (prevScene != null)
+            {
+                GameManager.SceneType prevType = GameManager.scenes.FirstOrDefault(x => x.Value == prevScene).Key;
+                string sceneString = GameManager.sceneString[prevType];
+                Console.WriteLine($"0: {sceneString}");
+            }
+            else
+            {
+                Console.WriteLine("0: 게임 종료");
+            }
+            Console.WriteLine("이동할 곳을 선택하세요. (숫자 입력)");
+            GameManager.instance.SavePlayerData();
+            Console.Write(">> ");
+            string input = Console.ReadLine()?.Trim() ?? "-1";
+            if (int.TryParse(input, out int nextSceneIdx))
+            {
+                if(nextSceneIdx >= 0 && nextSceneIdx <= nextScenes.Count)
+                {
+                    return EndScene(nextSceneIdx);
+                }
+            }
+            else
+            {
+                Console.WriteLine("잘못된 입력입니다. 숫자를 입력해주세요.");
+                continue;
+            }
         }
     }
 
-    public void EndScene(int nextSceneIdx)
+    public IGameScene? EndScene(int nextSceneIdx)
     {
         if(nextSceneIdx == 0)
         {
             if(prevScene == null) GameManager.instance.GameExit();
-            prevScene?.StartScene();
+            else return prevScene;
+                
         }
-        if (nextSceneIdx > 0 && nextSceneIdx <= nextScenes.Count)
-        {
-            nextScenes[nextSceneIdx-1].StartScene();
-        }
-        else
-        {
-            PrintNextScenes();
-        }
+
+        return nextScenes[nextSceneIdx - 1];
+        
     }
 
     

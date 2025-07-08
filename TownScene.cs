@@ -7,15 +7,16 @@ public class TownScene : GameScene
         
     }
 
-    public override void StartScene()
+    public override IGameScene? StartScene()
     {
         StatCheck();
+        GameManager.instance.SavePlayerData();
         Console.Clear();
         Console.WriteLine("당신은 마을에 도착했습니다.");
         Console.WriteLine("마을에서 무엇을 하시겠습니까?");
         Console.WriteLine();
 
-        PrintNextScenes();
+        return PrintNextScenes();
     }
 
     public void StatCheck()

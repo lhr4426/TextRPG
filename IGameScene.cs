@@ -5,10 +5,10 @@ public interface IGameScene
 {
     void SetNextScene(IGameScene nextScene);
     void SetPrevScene(IGameScene prevScene);
-    void StartScene();
+    IGameScene? StartScene();
 
-    void PrintNextScenes();
-    void EndScene(int nextSceneIdx);
+    IGameScene? PrintNextScenes();
+    IGameScene? EndScene(int nextSceneIdx);
 
     
 }

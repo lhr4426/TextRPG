@@ -8,7 +8,7 @@ public class FirstScene : GameScene
         
     }
 
-    public override void StartScene()
+    public override IGameScene? StartScene()
     {
         
         while (true)
@@ -33,6 +33,7 @@ public class FirstScene : GameScene
                 {
                     Console.WriteLine("플레이어 데이터가 없습니다. 새 플레이어를 생성합니다.");
                     MakePlayer();
+                    break;
                 }
                 else
                 {
@@ -45,7 +46,8 @@ public class FirstScene : GameScene
                 continue;
             }
         }
-        PrintNextScenes();
+        IGameScene? nextScene = PrintNextScenes();
+        return nextScene;
     }
 
     public void MakePlayer()

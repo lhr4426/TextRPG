@@ -7,13 +7,13 @@ public class ProfileScene : GameScene
 	{
         
     }
-    public override void StartScene()
+    public override IGameScene? StartScene()
     {
         
         PrintProfile();
         PrintEquipItems();
         Console.WriteLine("\n상태를 확인한 후, 다음으로 이동할 곳을 선택하세요.");
-        PrintNextScenes();
+        return PrintNextScenes();
     }
 
     public void PrintProfile()
@@ -69,7 +69,7 @@ public class ProfileScene : GameScene
                 hasArmor = true;
             }
         }   
-        Console.Write($"방어력 : {GameManager.instance.playerData.DEF - stat}");
+        Console.Write($"방어력 : {GameManager.instance.playerData.DEF}");
         if (hasArmor)
         {
             Console.WriteLine($"\t|(+{stat})");
