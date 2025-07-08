@@ -131,3 +131,15 @@ $RECYCLE.BIN/
 .DS_Store
 
 _NCrunch*
+
+# User-specific files
+*.vsidx
+*.user
+*.suo
+
+# Build results
+bin/
+obj/
+
+# Visual Studio folder
+.vs/
