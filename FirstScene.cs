@@ -62,11 +62,13 @@ public class FirstScene : GameScene
         GameManager.instance.NewPlayerData(inputName);
         GameManager.instance.SavePlayerData();
         Console.WriteLine($"{inputName} 님, 당신은 새로운 모험을 시작하게 됩니다...");
+        Console.WriteLine("아무 키나 입력하여 마을로 들어갑니다.");
         Console.ReadKey();
     }
 
     public void StartOrEnd()
     {
+        Console.Clear();
         Console.WriteLine("TextRPG 게임에 오신 것을 환영합니다!");
         Console.WriteLine("1. 게임 시작");
         Console.WriteLine("0. 게임 종료");

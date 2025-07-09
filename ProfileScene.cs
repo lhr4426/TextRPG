@@ -20,8 +20,8 @@ public class ProfileScene : GameScene
     {
         Console.Clear();
         Console.WriteLine("플레이어 프로필:");
-        Console.WriteLine($"레벨: {GameManager.instance.playerData.Level}");
-        Console.WriteLine($"{GameManager.instance.playerData.Name} ( {GameManager.instance.playerData.Job} )");
+        Console.WriteLine($"레벨: {GameManager.instance.playerData.Level} | 경험치: {GameManager.instance.playerData.Exp}");
+        Console.WriteLine($"{GameManager.instance.playerData.Name} ( {PlayerData.jobString[GameManager.instance.playerData.Job]} )");
         CheckStats();
         Console.WriteLine($"체력: {GameManager.instance.playerData.HP}");
         Console.WriteLine($"골드: {GameManager.instance.playerData.Gold} G");

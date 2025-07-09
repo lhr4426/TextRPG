@@ -65,13 +65,20 @@ public class InventoryScene : GameScene
         if (isEquip)
         {
             Console.WriteLine($"{item.Name} 아이템을 장착했습니다.");
-            GameManager.instance.playerData.Items[itemIndex].IsEquip = true;
+            item.IsEquip = true;
+            Item alreadyEquip = GameManager.instance.playerData.EquipItem[(int)item.ItemType];
+            if (alreadyEquip != null && alreadyEquip.IsEquip)
+            {
+                var alreadyEquipInItems = GameManager.instance.playerData.Items.FirstOrDefault(x => x.Name == alreadyEquip.Name);
+                if (alreadyEquipInItems != null) alreadyEquipInItems.IsEquip = false;
+            }
             GameManager.instance.playerData.EquipItem[(int)item.ItemType] = item;
+
         }
         else
         {
             Console.WriteLine($"{item.Name} 아이템을 해제했습니다.");
-            GameManager.instance.playerData.Items[itemIndex].IsEquip = false;
+            item.IsEquip = false;
             GameManager.instance.playerData.EquipItem[(int)item.ItemType] = null;
         }
     }

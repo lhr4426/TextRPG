@@ -6,6 +6,7 @@ using System.Xml.Linq;
 
 public class GameManager
 {
+
     public enum SceneType
     {
         FirstScene = 1,
@@ -13,6 +14,7 @@ public class GameManager
         ProfileScene,
         InventoryScene,
         SkillInventoryScene,
+        GuildScene,
         ShopScene,
         InnScene,
         DungeonScene,
@@ -26,6 +28,7 @@ public class GameManager
         { SceneType.ProfileScene, "상태 확인" },
         { SceneType.InventoryScene, "인벤토리" },
         { SceneType.SkillInventoryScene, "스킬트리" },
+        { SceneType.GuildScene, "모험가 길드" },
         { SceneType.ShopScene, "상점으로" },
         { SceneType.InnScene, "여관으로" },
         { SceneType.DungeonScene, "던전으로" }
@@ -38,6 +41,7 @@ public class GameManager
         { SceneType.ProfileScene, new ProfileScene() },
         { SceneType.InventoryScene, new InventoryScene() },
         { SceneType.SkillInventoryScene, new SkillInventoryScene() },
+        { SceneType.GuildScene, new GuildScene() },
         { SceneType.ShopScene, new ShopScene() },
         { SceneType.InnScene, new InnScene() },
         { SceneType.DungeonScene, new DungeonScene() }
@@ -83,12 +87,16 @@ public class GameManager
 
         scenes[SceneType.TownScene].SetNextScene(scenes[SceneType.ProfileScene]);
         scenes[SceneType.TownScene].SetNextScene(scenes[SceneType.InventoryScene]);
+        scenes[SceneType.TownScene].SetNextScene(scenes[SceneType.SkillInventoryScene]);
+        scenes[SceneType.TownScene].SetNextScene(scenes[SceneType.GuildScene]);
         scenes[SceneType.TownScene].SetNextScene(scenes[SceneType.ShopScene]);
         scenes[SceneType.TownScene].SetNextScene(scenes[SceneType.InnScene]);
         scenes[SceneType.TownScene].SetNextScene(scenes[SceneType.DungeonScene]);
 
         scenes[SceneType.ProfileScene].SetPrevScene(scenes[SceneType.TownScene]);
         scenes[SceneType.InventoryScene].SetPrevScene(scenes[SceneType.TownScene]);
+        scenes[SceneType.SkillInventoryScene].SetPrevScene(scenes[SceneType.TownScene]);
+        scenes[SceneType.GuildScene].SetPrevScene(scenes[SceneType.TownScene]);
         scenes[SceneType.ShopScene].SetPrevScene(scenes[SceneType.TownScene]);
         scenes[SceneType.InnScene].SetPrevScene(scenes[SceneType.TownScene]);
         scenes[SceneType.DungeonScene].SetPrevScene(scenes[SceneType.TownScene]);
@@ -109,8 +117,9 @@ public class GameManager
     {
         playerData = new PlayerData();
         playerData.Name = playerName;
-        playerData.Job = "전사";
+        playerData.Job = PlayerData.Jobs.Warrior;
         playerData.Level = 1;
+        playerData.Exp = 0;
         playerData.ATK = BaseATK;
         playerData.DEF = BaseDEF;
         playerData.HP = 100;
@@ -130,7 +139,7 @@ public class GameManager
         playerData.EquipItem[(int)IItem.ItemTypes.Weapon] = defaultSword;
 
         playerData.Skills = new List<Skill?>();
-        /*
+        
         Skill defaultSkill = new Skill(
             "기본 공격",
             "적에게 기본 공격을 합니다.",
@@ -139,7 +148,8 @@ public class GameManager
             false
             );
         playerData.Skills.Add(defaultSkill);
-        */
+        if (playerData.Skills[0] != null) playerData.Skills[0].IsEquip = true; // 기본 스킬을 착용 상태로 설정
+
     }
     string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "playerdata.json");
 
@@ -166,7 +176,6 @@ public class GameManager
     public void SavePlayerData()
     {
         // Json으로 저장
-        Console.WriteLine("플레이어 데이터를 저장합니다.");
         string json = JsonSerializer.Serialize(playerData);
         File.WriteAllText(path, json);
     }
