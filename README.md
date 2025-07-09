@@ -48,16 +48,7 @@ direction TB
     class InventoryScene {
     }
 
-    class SkillInventoryScene {
-    }
-
-    class ShopScene {
-    }
-
     class InnScene {
-    }
-
-    class DungeonScene {
     }
 
     class Item {
@@ -92,6 +83,49 @@ direction TB
 	    +SavePlayerData()
     }
 
+    class Dungeon {
+	    +Name
+	    +Description
+	    +GoldReward
+	    +ExperienceReward
+	    +NeedDEF
+	    +List monsters
+    }
+
+    class Monster {
+	    +Name
+	    +ATK
+	    +DEF
+	    +HP
+	    +MaxHP
+	    +IsDead
+    }
+
+    class ShopItem {
+	    +isSoldOut
+	    +string ToShopString()
+    }
+
+    class SkillTreeSkill {
+	    +isLearned
+	    +needLevel
+	    +needJob
+	    +UpdateCanILearn()
+	    +ToSkillTreeString()
+    }
+
+    class SkillInventoryScene {
+	    +List skillTreeSkills
+    }
+
+    class ShopScene {
+	    +List shopItems
+    }
+
+    class DungeonScene {
+	    +List dungeons
+    }
+
 	<<Interface>> IGameScene
 	<<Class>> PlayerData
 	<<Class>> GameScene
@@ -99,13 +133,17 @@ direction TB
 	<<Class>> TownScene
 	<<Class>> ProfileScene
 	<<Class>> InventoryScene
-	<<Class>> SkillInventoryScene
-	<<Class>> ShopScene
 	<<Class>> InnScene
-	<<Class>> DungeonScene
 	<<Class>> Item
 	<<Class>> Skill
 	<<Class>> GameManager
+	<<Class>> Dungeon
+	<<Class>> Monster
+	<<Class>> ShopItem
+	<<Class>> SkillTreeSkill
+	<<Class>> SkillInventoryScene
+	<<Class>> ShopScene
+	<<Class>> DungeonScene
 
     GameManager o-- IGameScene
     GameManager o-- PlayerData
@@ -120,6 +158,13 @@ direction TB
     GameScene <|-- DungeonScene
     PlayerData o-- Item
     PlayerData o-- Skill
+    DungeonScene o-- Dungeon
+    Dungeon o-- Monster
+    Item -- ShopItem
+    ShopScene -- ShopItem
+    Skill -- SkillTreeSkill
+    SkillInventoryScene -- SkillTreeSkill
+
 
 
 ```
