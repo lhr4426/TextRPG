@@ -64,7 +64,6 @@ public class InventoryScene : GameScene
         Console.Clear();
         if (isEquip)
         {
-            Console.WriteLine($"{item.Name} 아이템을 장착했습니다.");
             item.IsEquip = true;
             Item alreadyEquip = GameManager.instance.playerData.EquipItem[(int)item.ItemType];
             if (alreadyEquip != null && alreadyEquip.IsEquip)
@@ -73,13 +72,14 @@ public class InventoryScene : GameScene
                 if (alreadyEquipInItems != null) alreadyEquipInItems.IsEquip = false;
             }
             GameManager.instance.playerData.EquipItem[(int)item.ItemType] = item;
+            Console.WriteLine($"{item.Name} 아이템을 장착했습니다.");
 
         }
         else
         {
-            Console.WriteLine($"{item.Name} 아이템을 해제했습니다.");
             item.IsEquip = false;
             GameManager.instance.playerData.EquipItem[(int)item.ItemType] = null;
+            Console.WriteLine($"{item.Name} 아이템을 해제했습니다.");
         }
     }
 }
