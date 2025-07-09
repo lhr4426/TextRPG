@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text;
+using System.Text.Json.Serialization;
 
 public class SkillTreeSkill : Skill
 {
@@ -10,36 +11,37 @@ public class SkillTreeSkill : Skill
 		Learned = 2 // 배움
     }
 
+    
+	public LearnedStatus IsLearned { get; set; } // 0: 배울 수 없음, 1: 배울 수 있음, 2: 배움
 
-    public LearnedStatus isLearned; // 0: 배울 수 없음, 1: 배울 수 있음, 2: 배움
+	public int NeedLevel { get; set; } // 스킬을 배우기 위한 최소 레벨
 
-	public int needLevel; // 스킬을 배우기 위한 최소 레벨
-
-	public PlayerData.Jobs needJob; // 스킬을 배우기 위한 직업
+    
+	public PlayerData.Jobs NeedJob { get; set; } // 스킬을 배우기 위한 직업
 
 	public SkillTreeSkill() : base(){ }
     
 
-    public SkillTreeSkill(string name, string description, int power, int cooldown, bool isMultiply, int needLevel, PlayerData.Jobs needJob, LearnedStatus isLearned = LearnedStatus.NotLearnable) : base(name, description, cooldown, power, isMultiply)
+    public SkillTreeSkill(string name, string description, int power, int cooldown, bool isMultiply, int NeedLevel, PlayerData.Jobs NeedJob, LearnedStatus IsLearned = LearnedStatus.NotLearnable) : base(name, description, cooldown, power, isMultiply)
     {
-		this.needLevel = needLevel;
-		this.needJob = needJob;
-		this.isLearned = isLearned; // 0: 배울 수 없음, 1: 배울 수 있음, 2: 배움
+		this.NeedLevel = NeedLevel;
+		this.NeedJob = NeedJob;
+		this.IsLearned = IsLearned; // 0: 배울 수 없음, 1: 배울 수 있음, 2: 배움
 		IsEquip = false; // 기본적으로 착용하지 않은 상태로 초기화
     }
 
     public void UpdateCanILearn()
 	{
 		if (GameManager.instance.playerData.Skills.Contains(this)) {
-			isLearned = LearnedStatus.Learned; // 이미 배운 스킬은 Learned로 설정
+			IsLearned = LearnedStatus.Learned; // 이미 배운 스킬은 Learned로 설정
 		}
-		if (GameManager.instance.playerData.Level >= needLevel && GameManager.instance.playerData.Job == needJob)
+		if (GameManager.instance.playerData.Level >= NeedLevel && GameManager.instance.playerData.Job == NeedJob)
 		{
-			isLearned = LearnedStatus.Learnable; // 레벨과 직업이 조건을 만족하면 배울 수 있음
+			IsLearned = LearnedStatus.Learnable; // 레벨과 직업이 조건을 만족하면 배울 수 있음
 		}
 		else
 		{
-			isLearned = LearnedStatus.NotLearnable; // 조건을 만족하지 않으면 배울 수 없음
+			IsLearned = LearnedStatus.NotLearnable; // 조건을 만족하지 않으면 배울 수 없음
 		}
 	}
     public string ToSkillTreeString()
@@ -51,7 +53,7 @@ public class SkillTreeSkill : Skill
 		sb.Append($"공격력: {Power}\t|");
 		if(isMultiply) sb.Append("곱연산\t|");
 		else sb.Append("합연산\t|");
-		switch(needJob)
+		switch(NeedJob)
 		{
 			case PlayerData.Jobs.Warrior:
 				sb.Append("전사 전용\t|");
@@ -63,7 +65,7 @@ public class SkillTreeSkill : Skill
 				sb.Append("모든 직업\t|");
 				break;
         }
-        switch (isLearned)
+        switch (IsLearned)
 		{
 			case LearnedStatus.NotLearnable:
 				sb.Append("배울 수 없음\t|");

@@ -10,17 +10,22 @@ public class FirstScene : GameScene
 
     public override IGameScene? StartScene()
     {
-        
+        IGameScene? nextScene = PrintNextScenes();
+        return nextScene;
+    }
+
+    public void SettingCharacter()
+    {
         while (true)
         {
             Console.Clear();
             StartOrEnd();
-            Console.Clear();    
+            Console.Clear();
 
             Console.WriteLine("당신은 어떤 마을에서 눈을 뜹니다...");
             Console.WriteLine("이 마을을 방문한 적이 있는 것 같습니까? (Y/N) : ");
             string input = Console.ReadLine()?.Trim().ToUpper() ?? "N";
-            if(input == "N")
+            if (input == "N")
             {
                 MakePlayer();
                 break;
@@ -46,8 +51,6 @@ public class FirstScene : GameScene
                 continue;
             }
         }
-        IGameScene? nextScene = PrintNextScenes();
-        return nextScene;
     }
 
     public void MakePlayer()

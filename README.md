@@ -102,14 +102,14 @@ direction TB
     }
 
     class ShopItem {
-	    +isSoldOut
+	    +IsSoldOut
 	    +string ToShopString()
     }
 
     class SkillTreeSkill {
-	    +isLearned
-	    +needLevel
-	    +needJob
+	    +IsLearned
+	    +NeedLevel
+	    +NeedJob
 	    +UpdateCanILearn()
 	    +ToSkillTreeString()
     }

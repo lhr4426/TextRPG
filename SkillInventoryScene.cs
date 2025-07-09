@@ -10,7 +10,7 @@ public class SkillInventoryScene : GameScene
 
     public SkillInventoryScene()
 	{
-        SettingSkillTree();
+        
         
     }
 
@@ -65,7 +65,7 @@ public class SkillInventoryScene : GameScene
 
     public void LearnSkill(int skillIndex)
     {
-        if (skillTreeSkills[skillIndex].isLearned == SkillTreeSkill.LearnedStatus.Learnable)
+        if (skillTreeSkills[skillIndex].IsLearned == SkillTreeSkill.LearnedStatus.Learnable)
         {
             Console.WriteLine($"{skillTreeSkills[skillIndex].Name} 스킬을 배우시겠습니까?");
             Console.WriteLine("1: 네, 2: 아니오");
@@ -73,11 +73,11 @@ public class SkillInventoryScene : GameScene
             string input = Console.ReadLine()?.Trim() ?? "2";
             if (input == "1")
             {
-                if (GameManager.instance.playerData.Level >= skillTreeSkills[skillIndex].needLevel &&
-                    GameManager.instance.playerData.Job == skillTreeSkills[skillIndex].needJob)
+                if (GameManager.instance.playerData.Level >= skillTreeSkills[skillIndex].NeedLevel &&
+                    GameManager.instance.playerData.Job == skillTreeSkills[skillIndex].NeedJob)
                 {
                     GameManager.instance.playerData.Skills.Add(skillTreeSkills[skillIndex]);
-                    skillTreeSkills[skillIndex].isLearned = SkillTreeSkill.LearnedStatus.Learned;
+                    skillTreeSkills[skillIndex].IsLearned = SkillTreeSkill.LearnedStatus.Learned;
                     Console.WriteLine($"{skillTreeSkills[skillIndex].Name} 스킬을 배웠습니다.");
                     OnSkillTreeUpdated?.Invoke(); // 스킬 트리 업데이트 이벤트 호출
                     Console.WriteLine("아무 키나 입력하여 돌아갑니다.");
@@ -94,7 +94,7 @@ public class SkillInventoryScene : GameScene
                 return;
             }
         }
-        else if (skillTreeSkills[skillIndex].isLearned == SkillTreeSkill.LearnedStatus.Learned)
+        else if (skillTreeSkills[skillIndex].IsLearned == SkillTreeSkill.LearnedStatus.Learned)
         {
             Console.WriteLine("이미 배운 스킬입니다.");
             return;

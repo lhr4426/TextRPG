@@ -67,18 +67,29 @@ public class GameManager
         {
             throw new InvalidOperationException("GameManager 인스턴스는 하나만 생성할 수 있습니다.");
         }
-
-
-        SceneSetting();
     }
 
     public void GameStart()
     {
+        SceneSetting();
+        SaveDataSetting();
         IGameScene? currentScene = scenes[SceneType.FirstScene];
         while (currentScene != null)
         {
             currentScene = currentScene.StartScene();
         }
+    }
+
+    public void SaveDataSetting()
+    {
+        FirstScene firstScene = (FirstScene)scenes[SceneType.FirstScene];
+        firstScene.SettingCharacter();
+
+        SkillInventoryScene skillInventoryScene = (SkillInventoryScene)scenes[SceneType.SkillInventoryScene];
+        skillInventoryScene.SettingSkillTree();
+
+        ShopScene shopScene = (ShopScene)scenes[SceneType.ShopScene];
+        shopScene.SettingShopItems();
     }
 
     public void SceneSetting()

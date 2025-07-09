@@ -7,7 +7,7 @@ public class ShopScene : GameScene
     List<ShopItem> shopItems = new List<ShopItem>();
     public ShopScene()
 	{
-		SettingShopItems();
+		
     }
 
     public void SettingShopItems()
@@ -220,7 +220,7 @@ public class ShopScene : GameScene
             {
                 GameManager.instance.playerData.Gold += sellPrice;
                 GameManager.instance.playerData.Items.RemoveAt(itemIndex); // 아이템 리스트에서 제거
-                shopItems.Find(i => i.Name == item.Name).isSoldOut = false; // 판매하면 품절 아님
+                shopItems.Find(i => i.Name == item.Name).IsSoldOut = false; // 판매하면 품절 아님
                 SaveShopItems(); // 상점 아이템 저장
 
                 Console.WriteLine($"{item.Name}을(를) 판매했습니다!");
@@ -243,7 +243,7 @@ public class ShopScene : GameScene
     
     public void PurchaseItem(int itemIndex)
     {
-        if (shopItems[itemIndex].isSoldOut)
+        if (shopItems[itemIndex].IsSoldOut)
         {
             Console.WriteLine($"{shopItems[itemIndex].Name}은(는) 품절되었습니다.");
             Console.WriteLine("아무 키나 입력하여 돌아갑니다.");
@@ -263,7 +263,7 @@ public class ShopScene : GameScene
                 if (input == "1")
                 {
                     GameManager.instance.playerData.Gold -= shopItems[itemIndex].Price;
-                    shopItems[itemIndex].isSoldOut = true; // 아이템 품절 처리
+                    shopItems[itemIndex].IsSoldOut = true; // 아이템 품절 처리
                     GameManager.instance.playerData.Items.Add((Item)shopItems[itemIndex]);
                     
                     SaveShopItems();
