@@ -233,11 +233,11 @@ PlayerData 클래스를 json으로 파싱하여 저장함.
 
 ## 배운 점 & 아쉬운 점
 
-<p align="justify">
+
 C#에서 클래스는 참조 형식이다..   
-값을 가져다가 값을 변경해도 제대로 적용된다...
-그걸 생각을 못하고 일일히 GameManager.instance.playerData.... 이런식으로 접근하다보니 코드가 너무 길어졌다.
-</p>
+값을 가져다가 값을 변경해도 제대로 적용된다...  
+그걸 생각을 못하고 일일히 GameManager.instance.playerData.... 이런식으로 접근하다보니 코드가 너무 길어졌다.  
+
 
 <br>
 
